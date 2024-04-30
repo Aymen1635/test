@@ -40,6 +40,7 @@ const Signin = () => {
         setAuth({
           accessToken: response.data.accessToken,
           email: response.data.email,
+          fullname: response.data.firstname + " " + response.data.lastname,
           userId:decodedToken.UserInfo.id,
           role: decodedToken.UserInfo.role
         })

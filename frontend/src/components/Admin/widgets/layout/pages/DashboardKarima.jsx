@@ -10,8 +10,8 @@ const DashboardKarima = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth.accessToken || !cookies.jwt) {
-            console.error('Access token or cookie is missing',auth.accessToken);
+        if (!auth.accessToken && !cookies.jwt) {
+            console.error('Access token or cookie is missing',cookies.jwt);
             navigate('/login', { replace: true });   
              }
           

@@ -19,6 +19,7 @@ import UpdateProfile from "./components/ClientComponent/Profile/UpdateProfile";
 import AddUser from "./components/Admin/dashboard/AddUser"
 import HomeAdmin from "./components/Admin/dashboard/home";
 import ProfileAdmin from "./components/Admin/pages/dashboard/profile";
+import Messages from "./components/Chat/home/Home";
 
 
 import ProfileKarima from "./components/Admin/widgets/layout/pages/ProfileKarima"
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
     <Route key="register" path="register" element={<Signup />} />,
     <Route key="admin" path="admin" element={<HomeAdmin />} />,
     <Route key="profileAdmin" path="profileAdmin" element={<ProfileAdmin />} />,
+    <Route key="chat" path="/Chat" element={<Messages />} />,
 
 
     <Route path='/dashboard' element={<Layout><DashboardKarima /></Layout>} />,

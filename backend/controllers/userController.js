@@ -133,6 +133,19 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getUsersForSidebar = async (req, res) => {
+	try {
+		const loggedInUserId = req.user;
+    console.log(req.user);
+    console.log("test");
+		const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+		res.json(filteredUsers);
+	} catch (error) {
+		console.error("Error in getUsersForSidebar: ", error.message);
+		res.status(500).json({ error: "Internal server error" });
+	}
+};
+
 module.exports ={
     getAllUsers,
     getUser,
@@ -140,5 +153,6 @@ module.exports ={
     createUser,
     updateUser,
     deleteUser,
-    getUserById
+    getUserById,
+    getUsersForSidebar
 }

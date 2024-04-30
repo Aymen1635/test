@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from 'jwt-decode';
 import { Navigate } from "react-router-dom";
+import { useContext } from 'react';
 
 export const AuthContext = createContext({});
 
@@ -12,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     accessToken: '',
     userId: '',
     role: '',
+
   });
   const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
 
@@ -34,6 +36,8 @@ export const AuthProvider = ({ children }) => {
             email: decodedToken.UserInfo.email,
             userId: decodedToken.UserInfo.id,
             role: userRole,
+  
+
           });
         } catch (error) {
           console.error("Error decoding JWT:", error);
@@ -44,6 +48,7 @@ export const AuthProvider = ({ children }) => {
             accessToken: '',
             userId: '',
             role: '',
+      
           });
           return <Navigate to="/login" />;
 
@@ -55,6 +60,7 @@ export const AuthProvider = ({ children }) => {
           accessToken: '',
           userId: '',
           role: '',
+     
         });
       }
     };
@@ -67,4 +73,13 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+export const useAuthContext = () => {
+	return useContext(AuthContext);
+};
+
+export const AuthContextProvider = ({ children }) => {
+	const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem("chat-user")) || null);
+
+	return <AuthContext.Provider value={{ authUser, setAuthUser }}>{children}</AuthContext.Provider>;
 };

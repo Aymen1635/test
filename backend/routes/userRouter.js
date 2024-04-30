@@ -3,6 +3,7 @@ const router=express.Router();
 const usersController =require("../controllers/userController");
 const verifyJWT = require("../middleware/verifyJWT");
 const verifyRole=require("../middleware/verifyRole")
+const getUsersForSidebar  = require("../controllers/userController.js").getUsersForSidebar;
 
 router.use(verifyJWT)
 router.use(verifyRole)
@@ -74,5 +75,11 @@ router.route("/").get((req, res) => {
     }
   });
 
+  router.route("/sidebar").get((req, res) => {
+ 
+      usersController.getUsersForSidebar(req, res);
+ 
+    
+  });
   
 module.exports=router

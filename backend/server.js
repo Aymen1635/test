@@ -1,7 +1,10 @@
 require("dotenv").config();
 const express = require("express");
+const app = require("./socket/socket.js").app; 
+const server = require("./socket/socket.js").server; 
 
-const app = express();
+
+
 const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
 const cookieParser=require('cookie-parser')
@@ -25,13 +28,15 @@ app.use('/demand',require('./routes/demandRoute'));
 app.use('/sponsor',require('./routes/sponsorRoute'));
 app.use('/notif',require('./routes/notificationRoutes'));
 app.use('/equipements',require('./routes/EquipementRoute'));
+app.use('/messages',require('./routes/message.routes'));
+
 
 app.use("/",require("./routes/root"))
 
 // firstime i connect to db
 mongoose.connection.once("open", () => {
   console.log(`MongoDB connected on port ${PORT}`);
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 });
